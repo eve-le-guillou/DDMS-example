@@ -59,7 +59,7 @@ TTK is now installed, but needs an update of the environment variables to be cal
     TTK_PREFIX=~/DDMS-example/ttk-dev/install
     export PV_PLUGIN_PATH=$TTK_PREFIX/bin/plugins/TopologyToolKit
     export LD_LIBRARY_PATH=$TTK_PREFIX/lib:$LD_LIBRARY_PATH
-    export PYTHONPATH=$TTK_PREFIX/lib/python3.10/site-packages
+    export PYTHONPATH=$TTK_PREFIX/lib/python3.12/site-packages
 
 ### Run the example
 

@@ -20,6 +20,10 @@ else:
 # get the material library
 materialLibrary1 = GetMaterialLibrary()
 
+colorPalette = GetSettingsProxy('ColorPalette')
+# Properties modified on colorPalette
+colorPalette.Background = [1.0, 1.0, 1.0]
+
 # Create a new 'Render View'
 renderView2 = CreateView('RenderView')
 renderView2.ViewSize = [432, 778]
