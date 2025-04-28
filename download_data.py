@@ -1,4 +1,5 @@
 import subprocess
+from paraview.simple import *
 
 def read_file(input_file):
     extension = input_file.split(".")[-1]
@@ -22,7 +23,7 @@ def read_file(input_file):
 
     return None
 
-bashCommand = "wget https://klacansky.com/open-scivis-datasets/backpack_512x512x373_uint16.raw -P ."
+bashCommand = "wget http://klacansky.com/open-scivis-datasets/backpack/backpack_512x512x373_uint16.raw -P ."
 result = subprocess.Popen(bashCommand, shell=True, universal_newlines=True)
 return_code = result.wait()
 if return_code != 0:
