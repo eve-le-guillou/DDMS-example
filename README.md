@@ -55,7 +55,7 @@ We will now install TTK using the repository on Github. Again, replace the `4` i
 
 TTK is now installed, but needs an update of the environment variables to be called easily in the command line.
 
-    export PATH=$PATH:~/DDMS-example/ttk-paraview/install/bin/
+    export PATH=$PATH:~/ttk-paraview/install/bin/
     TTK_PREFIX=~/DDMS-example/ttk-dev/install
     export PV_PLUGIN_PATH=$TTK_PREFIX/bin/plugins/TopologyToolKit
     export LD_LIBRARY_PATH=$TTK_PREFIX/lib:$LD_LIBRARY_PATH
