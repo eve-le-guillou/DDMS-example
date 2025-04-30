@@ -40,8 +40,7 @@ Please note that ParaView will use an X server by default to produce the image b
 First, retrieve this repository.
 
     cd ~ 
-    git clone git@github.com:eve-le-guillou/DDMS-example.git
-    cd DDMS-example/
+    git clone https://github.com:eve-le-guillou/DDMS-example.git
 
 We will now install TTK using the repository on Github. Again, replace the `4` in `make -j4 install` by the number of cores available.
     
@@ -66,17 +65,21 @@ TTK is now installed, but needs an update of the environment variables to be cal
 Now, we will run the example. First, download and convert the dataset:
 
     cd ~/DDMS-example
-    python3 download_data.py    
+    pvpython download_data.py    
 
 By default, the example is resampled to $128^3$. To execute it using 2 threads and 4 processes, use the following command:
 
     OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun -n 4 pvbatch pipeline.py
 
+If your hardware possesses less than 4 cores, MPI will refuse to run . To force the execution, the option `--oversubscribe` needs to be added to the command line:
+
+    OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun --oversubscribe -n 4 pvbatch pipeline.py    
+
 If you want to resample to a higher dimension, for example $512^3$ as in the strong scaling benchmark of the reference paper, it can simply be done by executing the following command:
 
     OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun -n 4 pvbatch pipeline.py 512
 
-Be aware that this will require a lot of memory to execute andmay not be possible on a regular laptop.
+Be aware that this will require a lot of memory to execute and may not be possible on a regular laptop.
 
 The command will create the following image and the persistence diagram is `.pvtu` format.
 
