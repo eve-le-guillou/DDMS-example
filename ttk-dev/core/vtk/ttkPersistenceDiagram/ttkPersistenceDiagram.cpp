@@ -94,9 +94,6 @@ int ttkPersistenceDiagram::dispatch(
     ttk::dcg::DiscreteGradient::clearCache(*triangulation);
   }
 
-  ttk::Memory m{};
-  printMsg("Memory use: " + std::to_string(m.getTotalUsage()));
-
   return 1;
 }
 
