@@ -1,12 +1,12 @@
 # DDMS-example
 
-This github repository contains the exact code used to reproduce the AT example in the reference below.
+This github repository contains the exact code used to reproduce the Backpack example in the reference below.
 
 ## Reference
 
-If you plan to use this code to generate results for a scientific document, thanks for referencing the following publication:
+If you plan to use this code to generate results for a scientific document, thanks for referencing the following manuscript:
 
-"Distributed Discrete Morse Sandwich: Efficient Computation of Persistence Diagrams for Massive Scalar Data"
+*"Distributed Discrete Morse Sandwich: Efficient Computation of Persistence Diagrams for Massive Scalar Data"*
 Eve Le Guillou, Pierre Fortin, Julien Tierny
 
 ## Installation Notes
