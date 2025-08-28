@@ -98,11 +98,11 @@ SetActiveView(renderView4)
 # ----------------------------------------------------------------
 
 # create a new 'PVD Reader'
-backpackpvd = PVDReader(registrationName='backpack.pvd', FileName='backpack.pvd')
-backpackpvd.PointArrays = ['ImageFile']
+datasetpvd = PVDReader(registrationName='dataset.pvd', FileName='dataset.pvd')
+datasetpvd.PointArrays = ['ImageFile']
 
 # create a new 'Resample To Image'
-resampleToImage1 = ResampleToImage(registrationName='ResampleToImage1', Input=backpackpvd)
+resampleToImage1 = ResampleToImage(registrationName='ResampleToImage1', Input=datasetpvd)
 resampleToImage1.SamplingDimensions = [dim, dim, dim]
 resampleToImage1.SamplingBounds = [0.0, 511.0, 0.0, 511.0, 0.0, 372.0]
 
@@ -451,6 +451,6 @@ animationScene1.AnimationTime = 0.0
 
 # ----------------------------------------------------------------
 # restore active source
-SetActiveSource(backpackpvd)
+SetActiveSource(datasetpvd)
 
 SaveScreenshot("ddmsExample.png", layout1)

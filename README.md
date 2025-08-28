@@ -65,7 +65,7 @@ TTK is now installed, but needs an update of the environment variables to be cal
 Now, we will run the example. First, download and convert the dataset:
 
     cd ~/DDMS-example
-    pvpython download_data.py    
+    pvpython download_data.py
 
 By default, the example is resampled to $128^3$. To execute it using 2 threads and 4 processes, use the following command:
 
@@ -73,7 +73,7 @@ By default, the example is resampled to $128^3$. To execute it using 2 threads a
 
 If your hardware possesses less than 4 cores, MPI will refuse to run . To force the execution, the option `--oversubscribe` needs to be added to the command line:
 
-    OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun --oversubscribe -n 4 pvbatch pipeline.py    
+    OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun --oversubscribe -n 4 pvbatch pipeline.py
 
 If you want to resample to a higher dimension, for example $512^3$ as in the strong scaling benchmark of the reference paper, it can simply be done by executing the following command:
 
@@ -84,3 +84,22 @@ Be aware that this will require a lot of memory to execute and may not be possib
 The command will create the following image and the persistence diagram is `.pvtu` format.
 
 ![output image](ddmsExample.png)
+
+### Use other datasets
+
+Other datasets of the OpenScivis datasets can be used to run this pipeline. To do so, change the lines 26 and 27 of the script `download_data.py` to match the name of one of the other dataset of OpenSciVis.
+
+### Reproduce the larger example
+
+In the associated paper, the persistence diagram is also computed for a very large dataset (a subset of Turbulent Channel Flow of size 2048x1920x1536). 
+
+To obtain this pipeline, add a `ExtractSubset` filter as done in the following lines to the `download_data.py` (line 35) and save the results of this filter in the `SaveData` function:
+
+	extractSubset1 = ExtractSubset(registrationName='ExtractSubset1', Input=data)
+	extractSubset1.VOI = [0, 2047, 0, 1919, 0, 1535]
+	
+The pipeline in `pipeline.py` should also be modified (by deleting the `ResampleToImage` filter.
+
+Then, the persistence diagram can be produced as it is in the `Run the example` section.
+
+

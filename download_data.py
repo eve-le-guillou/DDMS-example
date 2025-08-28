@@ -23,20 +23,25 @@ def read_file(input_file):
 
     return None
 
-bashCommand = "wget http://klacansky.com/open-scivis-datasets/backpack/backpack_512x512x373_uint16.raw -P ."
+filename = "backpack_512x512x373_uint16.raw"
+bashCommand = f"wget http://klacansky.com/open-scivis-datasets/backpack/{filename} -P ."
+
 result = subprocess.Popen(bashCommand, shell=True, universal_newlines=True)
 return_code = result.wait()
 if return_code != 0:
     print("Error for command: "+bashCommand)
 
-data = read_file("backpack_512x512x373_uint16.raw")
+data = read_file(filename)
 
-calculator1 = Calculator(registrationName='Calculator1', Input=data)
-calculator1.Function = ''
+if "uint16" in filename:
+	calculator1 = Calculator(registrationName='Calculator1', Input=data)
+	calculator1.Function = ''
 
-# Properties modified on calculator1
-calculator1.ResultArrayName = 'ImageFile'
-calculator1.Function = 'ImageFile'
-calculator1.ResultArrayType = 'Int'
-    
-SaveData("backpack.pvd", calculator1)
+	# Properties modified on calculator1
+	calculator1.ResultArrayName = 'ImageFile'
+	calculator1.Function = 'ImageFile'
+	calculator1.ResultArrayType = 'Int'
+	    
+	SaveData("dataset.pvd", calculator1)
+else:
+	SaveData("dataset.pvd", data)
