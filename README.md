@@ -1,19 +1,28 @@
 # DDMS-example
 
-This github repository contains the exact code used to reproduce the Backpack example in the reference below.
-
-This repository is a standalone example created to reproduce the results of the reference below. It is not maintained. For a maintained version of this example, please see the [TTK documentation](https://topology-tool-kit.github.io/examples/distributedPersistenceDiagram/).
-
 ## Reference
 
-If you plan to use this code to generate results for a scientific document, thanks for referencing the following manuscript:
+If you plan to use this code to generate results for a scientific document, thank you for referencing the following manuscript:
 
-*"Distributed Discrete Morse Sandwich: Efficient Computation of Persistence Diagrams for Massive Scalar Data"*
-Eve Le Guillou, Pierre Fortin, Julien Tierny
+*Eve Le Guillou, Pierre Fortin, Julien Tierny. Distributed Discrete Morse Sandwich: Efficient Computation of Persistence Diagrams for Massive Scalar Data. IEEE Transactions on Parallel and Distributed Systems, 2025, pp.1-18. ⟨10.1109/TPDS.2025.3626047⟩.*
+
+Eve Le Guillou is with CNRS, Sorbonne Université, 75005 Paris, France, and also with the University of Lille, 59000 Lille, France.
+Pierre Fortin is with CNRS, Centrale Lille, UMR 9189 CRIStAL, University Lille, F-59000 Lille, France.
+Julien Tierny is with CNRS, Sorbonne Université, 75005 Paris, France.
+
+## Abstract
+
+The persistence diagram, which describes the topological features of a dataset, is a key descriptor in Topological Data Analysis. The "Discrete Morse Sandwich" (DMS) method has been reported to be the most efficient algorithm for computing persistence diagrams of 3D scalar fields on a single node, using shared-memory parallelism. In the paper associated with this repository, we extend DMS to distributed-memory parallelism for the efficient and scalable computation of persistence diagrams for massive datasets across multiple compute nodes. On the one hand, we can leverage the embarrassingly parallel procedure of the first and most time-consuming step of DMS (namely the discrete gradient computation). On the other hand, the efficient distributed computations of the subsequent DMS steps are much more challenging. To address this, we have extensively revised the DMS routines by contributing a new self-correcting distributed pairing algorithm, redesigning key data structures and introducing computation tokens to coordinate distributed computations. We have also introduced a dedicated communication thread to overlap communication and computation. Detailed performance analyses show the scalability of our hybrid MPI+thread approach for strong and weak scaling using up to 16 nodes of 32 cores (512 cores total). Our algorithm outperforms DIPHA, a reference method for the distributed computation of persistence diagrams, with an average speedup of x8 on 512 cores. We show the practical capabilities of our approach by computing the persistence diagram of a public 3D scalar field of 6 billion vertices in 174 seconds on 512 cores. 
+
+Finally, we provide a usage example of our open-source implementation here. This github repository contains the exact code used to reproduce the Backpack example in the reference above. As the datasets used in the benchmarks of the paper may require to much memory for a normal laptop, a resampling is performed and can be adapted to the user's resources.
+
+This repository is a standalone example created to reproduce the results of the reference above. It is not maintained. For a maintained version of this example, please see the [TTK documentation](https://topology-tool-kit.github.io/examples/distributedPersistenceDiagram/).
 
 ## Installation Notes
 
-Tested on Desktop Ubuntu 24.04.2 LTS.
+Tested on Desktop Ubuntu 24.04.2 LTS (preferably with an X server, see the `Install ParaView` section).
+
+Depending on the system on which the installation occurs, this step will take approximately between 30 minutes and a few hours.
 
 ### Install the dependencies
 
@@ -62,14 +71,14 @@ TTK is now installed, but needs an update of the environment variables to be cal
     export LD_LIBRARY_PATH=$TTK_PREFIX/lib:$LD_LIBRARY_PATH
     export PYTHONPATH=$TTK_PREFIX/lib/python3.12/site-packages
 
-### Run the example
+## Run the example
 
 Now, we will run the example. First, download and convert the dataset:
 
     cd ~/DDMS-example
     pvpython download_data.py
 
-By default, the example is resampled to $128^3$. To execute it using 2 threads and 4 processes, use the following command:
+By default, the example is resampled to $128^3$. The execution should take less than a minute. To execute it using 2 threads and 4 processes, use the following command:
 
     OMPI_MPI_THREAD_LEVEL=3 OMP_NUM_THREADS=4 mpirun -n 4 pvbatch pipeline.py
 
